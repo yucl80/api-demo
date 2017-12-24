@@ -1,10 +1,7 @@
 package yucl.learn.demo.samples.test;
 
 import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
-import io.protostuff.JsonIOUtil;
-import io.protostuff.LinkedBuffer;
-import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
+import io.protostuff.*;
 import io.protostuff.runtime.RuntimeSchema;
 
 import java.io.ByteArrayOutputStream;
@@ -20,15 +17,20 @@ public class TestProtostuff {
 
     public static void main(String[] args) {
         long l = System.currentTimeMillis();
-        for(int i=0;i<10000;i++){
-            f4();
+        for (int i = 0; i < 10000; i++) {
+            //f4();
+            Products products = new Products();
+            products.setS1("hello");
+            products.setB1(true);
+            byte[] bytes = toByteArray(products);
+            Products x = toObject(bytes, Products.class);
+            //System.out.println(x);
         }
-        System.out.println(System.currentTimeMillis()-l);
+        System.out.println(System.currentTimeMillis() - l);
 
     }
 
     private static void f4() {
-
         Products instance = new Products();
         instance.setI1(100);
         Schema<Products> schema = RuntimeSchema.getSchema(Products.class);
@@ -73,6 +75,30 @@ public class TestProtostuff {
             List<Products> pd = test.deserializeProtoStuffDataListToProductsList(list);
             System.out.println(test.userTime);
         }
+    }
+
+    public static <T> byte[] toByteArray(T message) {
+        Schema<T> schema = RuntimeSchema.getSchema((Class<T>) message.getClass());
+        LinkedBuffer buffer = LinkedBuffer.allocate(4096);
+        byte[] protostuff = null;
+        try {
+            protostuff = ProtostuffIOUtil.toByteArray(message, schema, buffer);
+        } finally {
+            buffer.clear();
+        }
+        return protostuff;
+    }
+
+    public static <T> T toObject(byte[] bytes, Class<T> cls) {
+        Schema<T> schema = RuntimeSchema.getSchema(cls);
+        try {
+            T obj = cls.newInstance();
+            ProtostuffIOUtil.mergeFrom(bytes, obj, schema);
+            return obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<byte[]> serializeProtoStuffProductsList(List<Products> pList) {
