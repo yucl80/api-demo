@@ -20,11 +20,11 @@
             <artifactId>dsl-json</artifactId>
             <version>1.5.2</version>
         </dependency>
-        <!--    <dependency>
-                <groupId>com.dslplatform</groupId>
-                <artifactId>dsl-json-processor</artifactId>
-                <version>1.5.0</version>
-            </dependency>-->
+        <!--<dependency>
+            <groupId>com.dslplatform</groupId>
+            <artifactId>dsl-json-processor</artifactId>
+            <version>1.5.0</version>
+        </dependency>-->
         <dependency>
             <groupId>com.dslplatform</groupId>
             <artifactId>dsl-json-java8</artifactId>

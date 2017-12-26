@@ -1,11 +1,12 @@
 package yucl.learn.demo.samples.test;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 商品类
  */
-public class Products {
+public class Products implements Serializable{
 
     private String s1;
     private String s2;

@@ -15,22 +15,9 @@ public class TestProtostuff {
     static Schema<Products> schema = RuntimeSchema.getSchema(Products.class);
     private long userTime;
 
-    public static void main(String[] args) {
-        long l = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
-            //f4();
-            Products products = new Products();
-            products.setS1("hello");
-            products.setB1(true);
-            byte[] bytes = toByteArray(products);
-            Products x = toObject(bytes, Products.class);
-            //System.out.println(x);
-        }
-        System.out.println(System.currentTimeMillis() - l);
 
-    }
 
-    private static void f4() {
+    public static void f4() {
         Products instance = new Products();
         instance.setI1(100);
         Schema<Products> schema = RuntimeSchema.getSchema(Products.class);
@@ -65,16 +52,16 @@ public class TestProtostuff {
         }
     }
 
-    private static void f1() {
+    public static void f1() {
         TestProtostuff test = new TestProtostuff();
         List<Products> products = new ArrayList<>();
         products.add(new Products());
-        for (int i = 0; i < 10000; i++) {
-            List<byte[]> list = test.serializeProtoStuffProductsList(products);
-            System.out.println(test.userTime);
-            List<Products> pd = test.deserializeProtoStuffDataListToProductsList(list);
-            System.out.println(test.userTime);
-        }
+
+        List<byte[]> list = test.serializeProtoStuffProductsList(products);
+           // System.out.println(test.userTime);
+        List<Products> pd = test.deserializeProtoStuffDataListToProductsList(list);
+           // System.out.println(test.userTime);
+
     }
 
     public static <T> byte[] toByteArray(T message) {
