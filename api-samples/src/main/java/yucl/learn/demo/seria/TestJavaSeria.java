@@ -1,4 +1,4 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.seria;
 
 import java.io.*;
 

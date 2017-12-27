@@ -1,11 +1,15 @@
 package yucl.learn.demo.compress;
 
 
+import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
 
 public class LZ4 implements CompressUtil {
-    static LZ4Factory lz4= LZ4Factory.nativeInstance();
+    static LZ4Factory lz4= LZ4Factory.fastestInstance();
+    static  LZ4FastDecompressor decompressor = lz4.fastDecompressor();
+    static LZ4Compressor fastCompressor=lz4.fastCompressor();
+
     @Override
     public byte[] compress(byte[] data) {
         if(data==null||data.length==0)
@@ -21,13 +25,13 @@ public class LZ4 implements CompressUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }*/
-        return   lz4.fastCompressor().compress(data);
+        return   fastCompressor.compress(data);
     }
 
     @Override
     public byte[] decompress(byte[] data) {
         try {
-            LZ4FastDecompressor decompressor = lz4.fastDecompressor();
+
             byte[] restored = new byte[1024*1024];
 
            // int maxCompressedLength = LZ4Factory.nativeInstance().highCompressor().maxCompressedLength(decompressedLength);

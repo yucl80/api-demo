@@ -1,10 +1,12 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.json;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import com.jsoniter.output.EncodingMode;
 import com.jsoniter.output.JsonStream;
 import com.jsoniter.spi.DecodingMode;
+import yucl.learn.demo.dto.Products;
+import yucl.learn.demo.dto.User;
 
 import java.io.IOException;
 

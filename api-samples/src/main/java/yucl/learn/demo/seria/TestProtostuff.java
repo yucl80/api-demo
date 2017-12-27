@@ -1,8 +1,9 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.seria;
 
 import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
 import io.protostuff.*;
 import io.protostuff.runtime.RuntimeSchema;
+import yucl.learn.demo.dto.Products;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

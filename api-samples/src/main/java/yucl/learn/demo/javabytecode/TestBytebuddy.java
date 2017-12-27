@@ -1,4 +1,4 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.javabytecode;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.FixedValue;

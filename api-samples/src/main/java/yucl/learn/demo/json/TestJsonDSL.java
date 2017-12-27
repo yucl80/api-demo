@@ -1,4 +1,4 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.json;
 
 import com.dslplatform.json.CompiledJson;
 import com.dslplatform.json.DslJson;

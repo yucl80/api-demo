@@ -1,7 +1,7 @@
 package yucl.learn.demo.compress;
 
-import yucl.learn.demo.samples.test.Products;
-import yucl.learn.demo.samples.test.TestJavaSeria;
+import yucl.learn.demo.dto.Products;
+import yucl.learn.demo.seria.TestJavaSeria;
 
 public class TestMain {
     public static void main(String[] args){

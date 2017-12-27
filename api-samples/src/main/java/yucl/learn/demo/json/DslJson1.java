@@ -1,6 +1,7 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.json;
 
 import com.dslplatform.json.*;
+import yucl.learn.demo.dto.ImmutablePerson;
 
 import java.io.IOException;
 import java.math.BigDecimal;

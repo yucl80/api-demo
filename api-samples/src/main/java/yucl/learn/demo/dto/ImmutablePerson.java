@@ -1,4 +1,4 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.dto;
 
 import com.dslplatform.json.*;
 

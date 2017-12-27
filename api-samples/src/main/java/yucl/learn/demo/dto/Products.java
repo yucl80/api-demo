@@ -1,4 +1,4 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo.dto;
 
 import java.io.Serializable;
 import java.util.List;

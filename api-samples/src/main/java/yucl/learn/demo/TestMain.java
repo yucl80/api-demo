@@ -1,4 +1,7 @@
-package yucl.learn.demo.samples.test;
+package yucl.learn.demo;
+
+import yucl.learn.demo.dto.Products;
+import yucl.learn.demo.seria.TestProtostuff;
 
 public class TestMain {
 
