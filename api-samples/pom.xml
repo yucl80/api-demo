@@ -20,7 +20,7 @@
             <artifactId>dsl-json</artifactId>
             <version>1.5.2</version>
         </dependency>
-        <!--<dependency>
+<!--        <dependency>
             <groupId>com.dslplatform</groupId>
             <artifactId>dsl-json-processor</artifactId>
             <version>1.5.0</version>
@@ -29,6 +29,21 @@
             <groupId>com.dslplatform</groupId>
             <artifactId>dsl-json-java8</artifactId>
             <version>1.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial.snappy</groupId>
+            <artifactId>snappy-java</artifactId>
+            <version>1.1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>io.protostuff</groupId>
