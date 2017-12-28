@@ -1,4 +1,4 @@
-package yucl.learn.demo;
+package yucl.learn.demo.javabytecode;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
