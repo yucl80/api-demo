@@ -268,6 +268,16 @@ public class Products implements Serializable{
 
     }
 
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
+    }
+
+    private Object user;
+
     public Products(String s1, String s2, String s3, String s4, String s5,
                     String s6, String s7, String s8, String s9, int i1, int i2, int i3,
                     int i4, int i5, int i6, int i7, int i8, int i9, boolean b1,
@@ -313,6 +323,6 @@ public class Products implements Serializable{
                 + i7 + ", i8=" + i8 + ", i9=" + i9 + ", b1=" + b1 + ", b2="
                 + b2 + ", b3=" + b3 + ", b4=" + b4 + ", b5=" + b5 + ", b6="
                 + b6 + ", b7=" + b7 + ", b8=" + b8 + ", b9=" + b9 + ", list="
-                + list + "]";
+                + list +", user="+user+ "]";
     }
 }

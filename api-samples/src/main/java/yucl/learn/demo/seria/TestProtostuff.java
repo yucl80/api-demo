@@ -1,13 +1,16 @@
 package yucl.learn.demo.seria;
 
-import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
-import io.protostuff.*;
+import io.protostuff.LinkedBuffer;
+import io.protostuff.ProtostuffIOUtil;
+import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import yucl.learn.demo.dto.Products;
+import yucl.learn.demo.dto.User;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,41 +20,6 @@ public class TestProtostuff {
     private long userTime;
 
 
-
-    public static void f4() {
-        Products instance = new Products();
-        instance.setI1(100);
-        Schema<Products> schema = RuntimeSchema.getSchema(Products.class);
-        byte[] data = JsonIOUtil.toByteArray(instance, schema, false);
-        Products pojo = new Products();
-        try {
-            //JsonIOUtil.writeTo(System.out,instance,schema,false);
-            //System.out.println(new String(data,"UTF-8"));
-            JsonIOUtil.mergeFrom(data, pojo, schema, false);
-            // System.out.println(pojo.getNumber());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static void f3() {
-        Products instance = new Products();
-        instance.setI1(100);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(out);
-            oos.writeObject(instance);
-            oos.close();
-            try (UTF8JsonGenerator jg = JsonIOUtil.newJsonGenerator(System.out, new byte[1024])) {
-                jg.writeObject(instance);
-                jg.flush();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void f1() {
         TestProtostuff test = new TestProtostuff();
@@ -87,6 +55,53 @@ public class TestProtostuff {
             e.printStackTrace();
         }
         return null;
+    }
+    public static <T> Object[] toObject(InputStream inputStream, Class<T> ... cls ) {
+        Object[] objs = new Object[cls.length];
+        for(int i=0;i<cls.length;i++) {
+            Schema<T> schema = RuntimeSchema.getSchema(cls[i]);
+            try {
+                T obj = cls[i].newInstance();
+                ProtostuffIOUtil.mergeDelimitedFrom(inputStream, obj, schema);
+                objs[i] = obj;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return objs;
+    }
+
+    public static void main(String[] args) throws IOException {
+        long time = System.currentTimeMillis();
+        for(int i=0;i<100000;i++) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            User user = new User();
+            user.setUserId(101);
+            user.setName("xiaolei");
+            user.setTags(new String[]{"height", "rich"});
+            Products products1 = new Products();
+            products1.setI1(1000);
+            products1.setB1(true);
+            products1.setS1("hello");
+            products1.setUser(user);
+            Products products2 = new Products();
+            products2.setI1(200);
+            products2.setUser(user);
+            byte[] bytes1 = toByteArray(products1);
+            byte[] bytes2 = toByteArray(products2);
+            //baos.write(bytes1);
+            //baos.write(bytes2);
+            ProtostuffIOUtil.writeDelimitedTo(baos, products1, RuntimeSchema.getSchema(Products.class), LinkedBuffer.allocate(512));
+            ProtostuffIOUtil.writeDelimitedTo(baos, products2, RuntimeSchema.getSchema(Products.class), LinkedBuffer.allocate(512));
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+
+            // System.out.println(baos.toByteArray().length+":"+baos.size()+":"+bytes1.length+":"+bytes2.length);
+            Object[] objects = toObject(bais, Products.class, Products.class);
+            //  for(int i=0;i<objects.length;i++)
+            //  System.out.println(objects[i]);
+        }
+        System.out.println(System.currentTimeMillis()-time);
+
     }
 
     public List<byte[]> serializeProtoStuffProductsList(List<Products> pList) {

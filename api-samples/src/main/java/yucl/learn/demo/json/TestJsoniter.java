@@ -41,7 +41,7 @@ public class TestJsoniter {
            int userId = iter.readInt();
            iter.readArray();
            User user = iter.read(User.class);
-           user.userId = userId;
+           user.setUserId(userId);
            iter.readArray(); // end of array
            System.out.println(user);
        }catch (IOException e){
