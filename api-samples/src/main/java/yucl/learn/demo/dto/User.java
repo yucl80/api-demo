@@ -1,8 +1,9 @@
 package yucl.learn.demo.dto;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class User {
+public class User implements Serializable{
     private int userId;
 
     public int getUserId() {

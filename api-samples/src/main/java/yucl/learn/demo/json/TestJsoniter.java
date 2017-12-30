@@ -16,14 +16,18 @@ public class TestJsoniter {
         JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
         JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
         Products products = new Products();
-       /* long l = System.currentTimeMillis();
-        for(int i=0;i<10000;i++){
-            String str = JsonStream.serialize(products);
-            JsonIterator.deserialize(str,Products.class);
+        products.setS1("hello");
+        products.setB1(true);
+        for (int j = 0; j < 20; j++) {
+            long l = System.currentTimeMillis();
+            for (int i = 0; i < 100000; i++) {
+                String str = JsonStream.serialize(products);
+                JsonIterator.deserialize(str, Products.class);
+            }
+            System.out.println(System.currentTimeMillis() - l);
         }
-        System.out.println(System.currentTimeMillis()-l);*/
-       f3();
-        //System.out.println(str);
+       //f3();
+       //System.out.println(str);
     }
 
     public static  void f2(){

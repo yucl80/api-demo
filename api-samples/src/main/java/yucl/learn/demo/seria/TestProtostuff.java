@@ -72,35 +72,42 @@ public class TestProtostuff {
     }
 
     public static void main(String[] args) throws IOException {
-        long time = System.currentTimeMillis();
-        for(int i=0;i<100000;i++) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            User user = new User();
-            user.setUserId(101);
-            user.setName("xiaolei");
-            user.setTags(new String[]{"height", "rich"});
-            Products products1 = new Products();
-            products1.setI1(1000);
-            products1.setB1(true);
-            products1.setS1("hello");
-            products1.setUser(user);
-            Products products2 = new Products();
+        User user = new User();
+        user.setUserId(101);
+        user.setName("xiaolei");
+        user.setTags(new String[]{"height", "rich"});
+        Products products1 = new Products();
+        products1.setI1(1000);
+        products1.setB1(true);
+        products1.setS1("hello");
+        products1.setUser(user);
+        for(int j=0;j<20;j++) {
+            long time = System.currentTimeMillis();
+
+            for (int i = 0; i < 100000; i++) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                // byte[] bytes1 = toByteArray(products1);
+
+           /* Products products2 = new Products();
             products2.setI1(200);
             products2.setUser(user);
-            byte[] bytes1 = toByteArray(products1);
-            byte[] bytes2 = toByteArray(products2);
-            //baos.write(bytes1);
-            //baos.write(bytes2);
-            ProtostuffIOUtil.writeDelimitedTo(baos, products1, RuntimeSchema.getSchema(Products.class), LinkedBuffer.allocate(512));
-            ProtostuffIOUtil.writeDelimitedTo(baos, products2, RuntimeSchema.getSchema(Products.class), LinkedBuffer.allocate(512));
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            byte[] bytes2 = toByteArray(products2);*/
+                //baos.write(bytes1);
+                //baos.write(bytes2);
+                LinkedBuffer buffer = LinkedBuffer.allocate(256);
+                ProtostuffIOUtil.writeDelimitedTo(baos, products1, RuntimeSchema.getSchema(Products.class), buffer);
+                buffer.clear();
+                // ProtostuffIOUtil.writeDelimitedTo(baos, products2, RuntimeSchema.getSchema(Products.class), LinkedBuffer.allocate(512));
+                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
-            // System.out.println(baos.toByteArray().length+":"+baos.size()+":"+bytes1.length+":"+bytes2.length);
-            Object[] objects = toObject(bais, Products.class, Products.class);
-            //  for(int i=0;i<objects.length;i++)
-            //  System.out.println(objects[i]);
+                // System.out.println(baos.toByteArray().length+":"+baos.size()+":"+bytes1.length+":"+bytes2.length);
+                Object[] objects = toObject(bais, Products.class);
+                //  for(int i=0;i<objects.length;i++)
+                //  System.out.println(objects[i]);
+            }
+            System.out.println(System.currentTimeMillis() - time);
         }
-        System.out.println(System.currentTimeMillis()-time);
 
     }
 
