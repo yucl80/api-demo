@@ -2,7 +2,6 @@ package yucl.learn.demo;
 
 import yucl.learn.demo.dto.Products;
 import yucl.learn.demo.dto.User;
-import yucl.learn.demo.seria.TestJavaSeria;
 import yucl.learn.demo.seria.TestKryo;
 import yucl.learn.demo.seria.TestProtostuff;
 
@@ -29,8 +28,8 @@ public class TestMain {
                     // Object[] objs = TestKryo.toObject(bytes,Object[].class);
                     // System.out.println(new String(bytes));
                     //  System.out.println(objs[0]+" "+objs[1]);
-                    byte[] bytes = TestJavaSeria.toByteArray(products);
-                    Products x = TestJavaSeria.toObject(bytes, Products.class);
+                   // byte[] bytes = TestJavaSeria.toByteArray(products);
+                    //Products x = TestJavaSeria.toObject(bytes, Products.class);
                     // System.out.print(new String(bytes));
                     //*TestProtostuff.f4();*/
                     //TestProtostuff.f1();
